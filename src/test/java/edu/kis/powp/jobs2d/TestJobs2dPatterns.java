@@ -9,6 +9,7 @@ import edu.kis.legacy.drawer.panel.DefaultDrawerFrame;
 import edu.kis.legacy.drawer.panel.DrawPanelController;
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.drivers.adapter.DrawerAdapter;
+import edu.kis.powp.jobs2d.events.Figure;
 import edu.kis.powp.jobs2d.events.SelectChangeVisibleOptionListener;
 import edu.kis.powp.jobs2d.events.SelectTestFigureOptionListener;
 import edu.kis.powp.jobs2d.features.DrawerFeature;
@@ -17,16 +18,22 @@ import edu.kis.powp.jobs2d.features.DriverFeature;
 public class TestJobs2dPatterns {
 	private final static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
+
 	/**
 	 * Setup test concerning preset figures in context.
 	 * 
 	 * @param application Application context.
 	 */
 	private static void setupPresetTests(Application application) {
-		SelectTestFigureOptionListener selectTestFigureOptionListener = new SelectTestFigureOptionListener(
-				DriverFeature.getDriverManager());
+		SelectTestFigureOptionListener selectTestFigureOptionListener1 = new SelectTestFigureOptionListener(
+				DriverFeature.getDriverManager(), Figure.Figure_Joe_1);
 
-		application.addTest("Figure Joe 1", selectTestFigureOptionListener);
+        SelectTestFigureOptionListener selectTestFigureOptionListener2 = new SelectTestFigureOptionListener(
+                DriverFeature.getDriverManager(), Figure.Figure_Joe_2);
+
+
+		application.addTest("Figure Joe 1", selectTestFigureOptionListener1);
+        application.addTest("Figure Joe 2", selectTestFigureOptionListener2);
 	}
 
 	/**
