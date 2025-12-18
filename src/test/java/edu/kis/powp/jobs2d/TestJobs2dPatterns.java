@@ -8,10 +8,14 @@ import java.util.logging.Logger;
 import edu.kis.legacy.drawer.panel.DefaultDrawerFrame;
 import edu.kis.legacy.drawer.panel.DrawPanelController;
 import edu.kis.powp.appbase.Application;
+import edu.kis.powp.jobs2d.command.RectangleFactory;
+import edu.kis.powp.jobs2d.command.SquareFactory;
+import edu.kis.powp.jobs2d.drivers.DriverManager;
 import edu.kis.powp.jobs2d.drivers.adapter.DrawerAdapter;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDrawerAdapter;
 import edu.kis.powp.jobs2d.events.Figure;
 import edu.kis.powp.jobs2d.events.SelectChangeVisibleOptionListener;
+import edu.kis.powp.jobs2d.events.SelectTestCommandOptionListener;
 import edu.kis.powp.jobs2d.events.SelectTestFigureOptionListener;
 import edu.kis.powp.jobs2d.features.DrawerFeature;
 import edu.kis.powp.jobs2d.features.DriverFeature;
@@ -26,15 +30,34 @@ public class TestJobs2dPatterns {
 	 * @param application Application context.
 	 */
 	private static void setupPresetTests(Application application) {
-		SelectTestFigureOptionListener selectTestFigureOptionListener1 = new SelectTestFigureOptionListener(
-				DriverFeature.getDriverManager(), Figure.Figure_Joe_1);
 
-        SelectTestFigureOptionListener selectTestFigureOptionListener2 = new SelectTestFigureOptionListener(
-                DriverFeature.getDriverManager(), Figure.Figure_Joe_2);
+        DriverManager driverManager = DriverFeature.getDriverManager();
 
+        application.addTest(
+                "Figure Joe 1",
+                new SelectTestFigureOptionListener(driverManager, Figure.Figure_Joe_1)
+        );
 
-		application.addTest("Figure Joe 1", selectTestFigureOptionListener1);
-        application.addTest("Figure Joe 2", selectTestFigureOptionListener2);
+        application.addTest(
+                "Figure Joe 2",
+                new SelectTestFigureOptionListener(driverManager, Figure.Figure_Joe_2)
+        );
+
+        application.addTest(
+                "Draw rectangle",
+                new SelectTestCommandOptionListener(
+                        driverManager,
+                        new RectangleFactory(100, 200).createCommand()
+                )
+        );
+
+        application.addTest(
+                "Draw square",
+                new SelectTestCommandOptionListener(
+                        driverManager,
+                        new SquareFactory(100).createCommand()
+                )
+        );
 	}
 
 	/**
